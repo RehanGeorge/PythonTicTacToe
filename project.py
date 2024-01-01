@@ -39,21 +39,28 @@ def play_game():
 
 
 def player_turn(game_board, player):
-    player_choice = int(input("Enter a number between 1-9: "))
-    possible_choices = []
-    for row in game_board:
-        for cell in row:
-            if type(cell) == int:
-                possible_choices.append(cell)
-    if player_choice not in possible_choices:
-        print("Invalid input. Please enter a number between 1-9")
+    try:
+        player_choice = int(input("Enter a number between 1-9: "))
+        possible_choices = []
+        for row in game_board:
+            for cell in row:
+                if type(cell) == int:
+                    possible_choices.append(cell)
+
+        if player_choice not in possible_choices:
+            print("Invalid input. Please enter a number between 1-9")
+            player_turn(game_board, player)
+
+        for row in game_board:
+            for i in range(len(row)):
+                if row[i] == int(player_choice):
+                    row[i] = player
+
+        new_player = "O" if player == "X" else "X"
+        return [game_board, new_player]
+    except ValueError:
+        print("Invalid input. Please enter a number.")
         player_turn(game_board, player)
-    for row in game_board:
-        for i in range(len(row)):
-            if row[i] == int(player_choice):
-                row[i] = player
-    new_player = "O" if player == "X" else "X"
-    return [game_board, new_player]
 
 
 def check_winner(game_board):
