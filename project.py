@@ -60,7 +60,7 @@ def player_turn(game_board, player):
         return [game_board, new_player]
     except ValueError:
         print("Invalid input. Please enter a number.")
-        player_turn(game_board, player)
+        return player_turn(game_board, player)
 
 
 def check_winner(game_board):
